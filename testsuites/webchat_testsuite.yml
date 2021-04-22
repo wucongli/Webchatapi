@@ -1,0 +1,13 @@
+config:
+    name: "webchat testsuite"
+
+testcases:
+#调用一次删除部门的用例
+-
+    name: 删除接口清除数据
+    testcase: testcases/delete_dept_testcase.yml
+-
+    name: 创建部门测试集合
+    testcase: testcases/create_dept_testcase1.yml
+    parameters:
+        title-name-name_en-parentid-order-id-assertvalue: ${P(data/createdep.csv)}

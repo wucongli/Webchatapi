@@ -1,0 +1,14 @@
+
+name: 获取access_token #接口名称
+variables:
+    corpid: ww3ebe4e6ef2348a5d
+    corpsecret: 8JrmvBHmHidJdaLZaQVX78-j-kcT_YTdn3odZvIkPks #F399zGOHkb7ca_1obZ_sc9YqnqGX1qzsVILR6uJtgUQ
+request:
+    url: https://qyapi.weixin.qq.com/cgi-bin/gettoken
+    method: GET
+    params: #params标识查询参数，查询参数就是可以挂在url之后的参数
+        corpid: $corpid
+        corpsecret: $corpsecret
+validate: #断言，判断结果的过程即断言
+    # - 是yaml文件中表示数组的，eq表示相等，status_code表示响应状态码，200 表示期望值
+    - eq: ["status_code", 200]

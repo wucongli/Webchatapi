@@ -1,0 +1,26 @@
+config:
+    name: "创建部门接口测试用例"
+#    variables:
+#        device_sn: "ABC"
+#        username: ${ENV(USERNAME)}
+#        password: ${ENV(PASSWORD)}
+#    base_url: "http://127.0.0.1:5000"
+
+teststeps:
+-
+    name: 先获取access_token #步骤的名称
+    api: api/get_token.yml #要执行的接口的api配置文件路径
+    extract: # 表示从响应结果解析某个字段，并存储在某个变量里
+        - token: content.access_token
+    validate:
+        - eq: ["status_code", 200]
+        - eq: [content.errmsg,ok] # 业务断言
+# 利用删除接口，清除之前的测试部门数据
+-
+    name: 删除部门-清除数据
+    api: api/delete_dept.yml
+    variables:
+        id: 3
+    validate:
+        - eq: [ "status_code", 200 ]
+        - eq: [ content.errmsg,deleted ] # 业务断言

@@ -1,0 +1,16 @@
+
+name: 删除部门 #接口名称
+variables:
+    token: OgAJNs3yzL50tQghYmLKNsXxQj3KNZIl_MgdRnBpmbMlqUjN5VQMx9No1vRTUAu7ISEn0N3cARdwcQ1Mr9s2FLrcwT7sGneSGbQ9D2AOMgtQzM4EBNb-wEMZh1s8LQAWGlpqz676c7ty36pjvAFouOvUHU9xlTGvZoY8FvS0rdgQLicWLZFFrlLzfXC4wN8EYmOnOK6Df-XpKLv-rsG2VA
+    #hZySykPLzMnmIzLyf_pjGhcAwYTLEyq_sbzzHq4OjD_OHaiviqlQDreXgmSWkTmAjef65BA7kME7GaZdztcjtTu521Spll5ez1LvO-DCSbo-3-UgKvJG5jpOE_dXuT7jqynqcxAbaHJr30Bmb6tUo3wo5bsNUlwC4gRobjPocqxSM-p7TBVza3EIchv5CIy6VTN14Wa3PVO1jaNYZjBFBw
+    id: 3
+request:
+    url: https://qyapi.weixin.qq.com/cgi-bin/department/delete
+    method: POST
+    params: #params标识查询参数，查询参数就是可以挂在url之后的参数
+        access_token: $token
+        id: $id
+
+validate: #断言，判断结果的过程即断言
+    # - 是yaml文件中表示数组的，eq表示相等，status_code表示响应状态码，200 表示期望值
+    - eq: ["status_code", 200]

@@ -1,0 +1,48 @@
+
+config:
+    name: "创建部门接口测试用例"
+
+teststeps:
+-
+    name: 获取access_token
+    api: api/get_token.yml #要执行的接口的api配置文件路径
+#    variables:
+#        user_agent: 'iOS/10.3'
+#        device_sn: $device_sn
+    extract: #表示从响应结果解析某个字段，并存储在某个变量里
+        - token: content.access_token
+    validate:
+        - eq: ["status_code", 200]
+        - eq: [content.errmsg, ok] #业务断言
+-
+    name: 删除上次创建部门 # name表示接口名称
+    api: api/delete_dept.yml
+    variables:
+#        token: $token
+        id: 3
+    validate: #断言，判断结果的过程即断言
+        # - 是yaml文件中表示数组的，eq表示相等，status_code表示响应状态码，200 表示期望值
+        - eq: [ "status_code", 200 ]
+        - eq: [ content.errmsg,deleted ] # 业务断言
+-
+    name: 创建部门 # name表示接口名称
+    api: api/create_dept.yml
+    variables:
+        name: 接口测试部
+        name_en: jkcsb
+        id: 3
+    validate: #断言，判断结果的过程即断言
+        # - 是yaml文件中表示数组的，eq表示相等，status_code表示响应状态码，200 表示期望值
+        - eq: [ "status_code", 200 ]
+        - eq: [content.errmsg, created] #业务断言
+-
+    name: 创建部门-部门名称重复 # name表示接口名称
+    api: api/create_dept.yml
+    variables:
+        name: 接口测试部
+#        name_en: jkcsb
+        id: 3
+    validate: #断言，判断结果的过程即断言
+        # - 是yaml文件中表示数组的，eq表示相等，status_code表示响应状态码，200 表示期望值
+        - eq: [ "status_code", 200 ]
+        - contains: [content.errmsg, existed] #业务断言
